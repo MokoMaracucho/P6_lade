@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isELIgnored="false" %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -66,7 +67,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/lade/recherche/recherche_avancee">Recherche avanc�e <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/lade/recherche/recherche_avancee">Recherche avancée<span class="sr-only">(current)</span></a>
             </li>
         </ul>
 

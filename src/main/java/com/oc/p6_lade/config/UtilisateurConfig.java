@@ -7,7 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class UtilisateurConfig {
                     "desmoulin.federico@gmail.com",
                     "MOTpasse",
                     Privilege.MEMBRE,
-                    LocalDate.of(2021, Month.JUNE, 6)
+                    Timestamp.valueOf(LocalDateTime.now())
             );
 
             Utilisateur mathieu = new Utilisateur(
@@ -34,7 +36,7 @@ public class UtilisateurConfig {
                     "desmoulin.mathieu@gmail.com",
                     "MOTpasse",
                     Privilege.UTILISATEUR,
-                    LocalDate.of(2021, Month.JUNE, 6)
+                    Timestamp.valueOf(LocalDateTime.now())
             );
 
             utilisateurRepository.saveAll(

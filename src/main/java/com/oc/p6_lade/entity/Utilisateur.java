@@ -1,6 +1,7 @@
 package com.oc.p6_lade.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Entity
@@ -29,7 +30,7 @@ public class Utilisateur {
 
     private Privilege privilegeUtilisateur;
 
-    private LocalDate dateInscriptionUtilisateur;
+    private Timestamp dateInscriptionUtilisateur;
 
     public Utilisateur() {
     }
@@ -40,7 +41,7 @@ public class Utilisateur {
             String emailUtilisateur,
             String motDePasseUtilisateur,
             Privilege privilegeUtilisateur,
-            LocalDate dateInscriptionUtilisateur) {
+            Timestamp dateInscriptionUtilisateur) {
         this.prenomUtilisateur = prenomUtilisateur;
         this.nomUtilisateur = nomUtilisateur;
         this.emailUtilisateur = emailUtilisateur;
@@ -56,7 +57,7 @@ public class Utilisateur {
             String emailUtilisateur,
             String motDePasseUtilisateur,
             Privilege privilegeUtilisateur,
-            LocalDate dateInscriptionUtilisateur
+            Timestamp dateInscriptionUtilisateur
     ) {
         this.idUtilisateur = idUtilisateur;
         this.prenomUtilisateur = prenomUtilisateur;
@@ -115,11 +116,11 @@ public class Utilisateur {
         this.privilegeUtilisateur = privilegeUtilisateur;
     }
 
-    public LocalDate getDateInscriptionUtilisateur() {
+    public Timestamp getDateInscriptionUtilisateur() {
         return dateInscriptionUtilisateur;
     }
 
-    public void setDateInscriptionUtilisateur(LocalDate dateInscriptionUtilisateur) {
+    public void setDateInscriptionUtilisateur(Timestamp dateInscriptionUtilisateur) {
         this.dateInscriptionUtilisateur = dateInscriptionUtilisateur;
     }
 
