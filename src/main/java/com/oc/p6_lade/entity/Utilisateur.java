@@ -1,10 +1,22 @@
 package com.oc.p6_lade.entity;
 
-import java.sql.Timestamp;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table
 public class Utilisateur {
 
+    @Id
+    @SequenceGenerator(
+            name = "utilisateur_sequence",
+            sequenceName = "utilisateur_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "utilisateur_sequence"
+    )
     private Long idUtilisateur;
 
     private String prenomUtilisateur;
