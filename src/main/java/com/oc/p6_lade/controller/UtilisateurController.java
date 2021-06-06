@@ -1,20 +1,21 @@
 package com.oc.p6_lade.controller;
 
-import com.oc.p6_lade.entity.Privilege;
 import com.oc.p6_lade.entity.Utilisateur;
 import com.oc.p6_lade.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping(path="lade/utilisateur")
 public class UtilisateurController {
+
+    public static final String ATT_LISTE_UTILISATEURS				 		= "listeUtilisateurs";
 
     private final UtilisateurService utilisateurService;
 
@@ -24,7 +25,9 @@ public class UtilisateurController {
     }
 
     @GetMapping(path="liste_utilisateurs")
-    public List<Utilisateur> listeUtilisateurs() {
-        return utilisateurService.listeUtilisateurs();
+    public String listeUtilisateurs(Model model) {
+        List<Utilisateur> listeUtilisateurs = utilisateurService.listeUtilisateurs();
+        model.addAttribute(ATT_LISTE_UTILISATEURS, listeUtilisateurs);
+        return "liste_utilisateurs";
     }
 }
