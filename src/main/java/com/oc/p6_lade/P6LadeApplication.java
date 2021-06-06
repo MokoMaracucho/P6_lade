@@ -9,5 +9,4 @@ public class P6LadeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(P6LadeApplication.class, args);
 	}
-
 }
