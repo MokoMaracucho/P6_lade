@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.oc.p6_lade.entity.ReservationTopo;
 import com.oc.p6_lade.entity.StatutReservationTopo;
@@ -19,19 +18,17 @@ import com.oc.p6_lade.repository.TopoRepository;
 @Service
 public class TopoServiceImpl implements TopoService {
 
-    @Autowired
     private TopoRepository topoRepository;
 
-    @Autowired
     private ReservationTopoRepository reservationTopoRepository;
 
+    @Autowired
     public TopoServiceImpl(TopoRepository topoRepository, ReservationTopoRepository reservationTopoRepository) {
         this.topoRepository = topoRepository;
         this.reservationTopoRepository = reservationTopoRepository;
     }
 
     @Override
-    @Transactional
     public void enregistrerTopo(FormAjoutTopo formAjoutTopo, Utilisateur utilisateur) {
         Topo topo = new Topo();
         topo.setNomTopo(formAjoutTopo.getNomTopo());
@@ -44,7 +41,6 @@ public class TopoServiceImpl implements TopoService {
     }
 
     @Override
-    @Transactional
     public void enregistrerReservationTopo(Long idTopo, Utilisateur utilisateur) {
         Topo topo = topoRepository.getOne(idTopo);
         topo.setDisponibiliteTopo(false);
@@ -57,31 +53,26 @@ public class TopoServiceImpl implements TopoService {
     }
 
     @Override
-    @Transactional
     public List<Topo> listeTopos() {
         return topoRepository.findAll();
     }
 
     @Override
-    @Transactional
     public List<ReservationTopo> listeReservationsTopo() {
         return reservationTopoRepository.findAll();
     }
 
     @Override
-    @Transactional
     public List<ReservationTopo> listeReservationsTopo(Long id) {
         return reservationTopoRepository.findAllByIdProprietaireTopo(id);
     }
 
     @Override
-    @Transactional
     public List<ReservationTopo> listeDemandesReservationTopo(Long idDemandeurReservationTopo) {
         return reservationTopoRepository.findAllByIdDemandeurReservationTopo(idDemandeurReservationTopo);
     }
 
     @Override
-    @Transactional
     public void majReservationTopo(Long idReservationTopo, Utilisateur utilisateur, StatutReservationTopo reponseReservationTopo) {
         ReservationTopo reservationTopo = reservationTopoRepository.getOne(idReservationTopo);
         Topo topo = reservationTopo.getTopo();
@@ -106,7 +97,6 @@ public class TopoServiceImpl implements TopoService {
     }
 
     @Override
-    @Transactional
     public List<Topo> rechercheNomTopo(String nomRecherche) throws ResourceNotFoundException {
         return topoRepository.rechercheNomTopo(nomRecherche);
     }

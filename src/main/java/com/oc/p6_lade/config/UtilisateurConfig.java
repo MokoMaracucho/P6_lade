@@ -24,7 +24,8 @@ public class UtilisateurConfig {
                     "desmoulin.federico@gmail.com",
                     "MOTpasse",
                     Privilege.MEMBRE,
-                    Timestamp.valueOf(LocalDateTime.now())
+                    Timestamp.valueOf(LocalDateTime.now()),
+
             );
 
             Utilisateur mathieu = new Utilisateur(

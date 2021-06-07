@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.oc.p6_lade.entity.Privilege;
 import com.oc.p6_lade.entity.Topo;
 
-@Repository("topoRepository")
+@Repository
 public interface TopoRepository extends JpaRepository<Topo, Long> {
 
     @Query(value="SELECT * FROM db_lade.tb_topo WHERE nom_topo = :nomRecherche", nativeQuery=true)

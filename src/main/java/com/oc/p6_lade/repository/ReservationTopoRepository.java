@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.oc.p6_lade.entity.ReservationTopo;
 
-@Repository("reservationTopoRepository")
+@Repository
 public interface ReservationTopoRepository extends JpaRepository<ReservationTopo, Long> {
 
     @Query(value="SELECT * FROM db_lade.tb_reservation_topo WHERE id_topo IN ( SELECT id_topo FROM db_lade.tb_topo WHERE id_utilisateur = :idProprietaire)", nativeQuery=true)
