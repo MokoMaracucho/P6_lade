@@ -56,7 +56,7 @@ public class UtilisateurController {
             session.setAttribute(ATT_SESSION_STATUT, true);
             session.setAttribute(ATT_UTILISATEUR, utilisateur);
             model.addAttribute(ATT_UTILISATEUR, utilisateur);
-            return "redirect:/utilisateur/liste_utilisateurs";
+            return "redirect:/lade/utilisateur/liste_utilisateurs";
         }
     }
 
@@ -77,7 +77,7 @@ public class UtilisateurController {
             session.setAttribute(ATT_SESSION_STATUT, true);
             session.setAttribute(ATT_UTILISATEUR, utilisateur);
             model.addAttribute(ATT_UTILISATEUR, utilisateur);
-            return "redirect:/topo/liste_reservations_topo";
+            return "redirect:/lade/topo/liste_reservations_topo";
         }
     }
 
