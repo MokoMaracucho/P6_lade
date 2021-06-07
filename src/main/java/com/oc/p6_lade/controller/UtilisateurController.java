@@ -1,6 +1,7 @@
 package com.oc.p6_lade.controller;
 
 import com.oc.p6_lade.entity.Utilisateur;
+import com.oc.p6_lade.form.FormConnection;
 import com.oc.p6_lade.form.FormInscription;
 import com.oc.p6_lade.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UtilisateurController {
     public static final String ATT_UTILISATEUR				 				= "utilisateur";
 
     public static final String ATT_FORM_INSCRIPTION 						= "formInscription";
+    public static final String ATT_FORM_CONNECTION 							= "formConnection";
 
     public static final String ATT_LISTE_UTILISATEURS				 		= "listeUtilisateurs";
 
@@ -55,6 +57,27 @@ public class UtilisateurController {
             session.setAttribute(ATT_UTILISATEUR, utilisateur);
             model.addAttribute(ATT_UTILISATEUR, utilisateur);
             return "redirect:/utilisateur/liste_utilisateurs";
+        }
+    }
+
+    @GetMapping("/connection_utilisateur")
+    public String connectionUtilisateur(Model model) {
+        model.addAttribute(ATT_FORM_CONNECTION, new FormConnection());
+        return "connection_utilisateur";
+    }
+
+    @PostMapping("/traitement_formulaire_connection")
+    public String traitementConnectionUtilisateur(HttpServletRequest request, @Valid @ModelAttribute("formConnection") FormConnection formConnection, BindingResult bindingResult, Model model) {
+        HttpSession session = request.getSession();
+        if(bindingResult.hasErrors()) {
+            session.setAttribute(ATT_SESSION_STATUT, false);
+            return "connection_utilisateur";
+        } else {
+            Utilisateur utilisateur = utilisateurService.selectionUtilisateurParEmail(formConnection.getEmailFormConnection());
+            session.setAttribute(ATT_SESSION_STATUT, true);
+            session.setAttribute(ATT_UTILISATEUR, utilisateur);
+            model.addAttribute(ATT_UTILISATEUR, utilisateur);
+            return "redirect:/topo/liste_reservations_topo";
         }
     }
 
