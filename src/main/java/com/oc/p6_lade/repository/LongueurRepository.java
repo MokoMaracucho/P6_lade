@@ -12,6 +12,6 @@ import com.oc.p6_lade.entity.Longueur;
 @Repository
 public interface LongueurRepository extends JpaRepository<Longueur, Long> {
 
-    @Query(value="SELECT * FROM db_lade.tb_longueur WHERE nom_longueur = :nomRecherche", nativeQuery=true)
+    @Query(value="SELECT * FROM db_lade.longueur WHERE nom_longueur = :nomRecherche", nativeQuery=true)
     List<Longueur> rechercheNomLongueur(@Param("nomRecherche") String nomRecherche);
 }

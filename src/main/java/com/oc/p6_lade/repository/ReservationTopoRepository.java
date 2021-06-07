@@ -12,9 +12,9 @@ import com.oc.p6_lade.entity.ReservationTopo;
 @Repository
 public interface ReservationTopoRepository extends JpaRepository<ReservationTopo, Long> {
 
-    @Query(value="SELECT * FROM db_lade.tb_reservation_topo WHERE id_topo IN ( SELECT id_topo FROM db_lade.tb_topo WHERE id_utilisateur = :idProprietaire)", nativeQuery=true)
+    @Query(value="SELECT * FROM db_lade.reservation_topo WHERE id_topo IN ( SELECT id_topo FROM db_lade.topo WHERE id_utilisateur = :idProprietaire)", nativeQuery=true)
     List<ReservationTopo> findAllByIdProprietaireTopo(@Param("idProprietaire") Long idProprietaire);
 
-    @Query(value="SELECT * FROM db_lade.tb_reservation_topo WHERE id_utilisateur = :idUtilisateur", nativeQuery=true)
+    @Query(value="SELECT * FROM db_lade.reservation_topo WHERE id_utilisateur = :idUtilisateur", nativeQuery=true)
     List<ReservationTopo> findAllByIdDemandeurReservationTopo(@Param("idUtilisateur") Long idUtilisateur);
 }

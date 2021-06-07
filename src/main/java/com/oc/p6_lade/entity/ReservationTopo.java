@@ -1,9 +1,12 @@
 package com.oc.p6_lade.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name="reservation_topo")
 public class ReservationTopo {
 
     @Id
@@ -24,10 +27,12 @@ public class ReservationTopo {
     private StatutReservationTopo statutReservationTopo;
 
     @ManyToOne
+    @OnDelete(action= OnDeleteAction.CASCADE)
     @JoinColumn(name="id_topo")
     private Topo topo;
 
     @ManyToOne
+    @OnDelete(action=OnDeleteAction.CASCADE)
     @JoinColumn(name="id_utilisateur")
     private Utilisateur demandeurReservationTopo;
 

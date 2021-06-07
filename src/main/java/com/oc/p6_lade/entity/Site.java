@@ -1,12 +1,15 @@
 package com.oc.p6_lade.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="site")
 public class Site {
 
     @Id
@@ -31,15 +34,16 @@ public class Site {
     private String regionSite;
 
     @ManyToOne
+    @OnDelete(action= OnDeleteAction.CASCADE)
     @JoinColumn(name="id_utilisateur")
     private Utilisateur utilisateur;
 
     @OneToMany
-    @JoinTable(name="tb_secteur", joinColumns=@JoinColumn(name="id_site"), inverseJoinColumns=@JoinColumn(name="id_secteur"))
+    @JoinTable(name="secteur", joinColumns=@JoinColumn(name="id_site"), inverseJoinColumns=@JoinColumn(name="id_secteur"))
     private List<Secteur> listeSecteurs;
 
     @OneToMany
-    @JoinTable(name="tb_commentaire", joinColumns=@JoinColumn(name="id_site"), inverseJoinColumns=@JoinColumn(name="id_commentaire"))
+    @JoinTable(name="commentaire", joinColumns=@JoinColumn(name="id_site"), inverseJoinColumns=@JoinColumn(name="id_commentaire"))
     private List<Commentaire> listeCommentaires;
 
     public Site() {

@@ -8,10 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.oc.p6_lade.entity.Privilege;
 import com.oc.p6_lade.entity.Topo;
 
-@Repository
+@Repository("topoRepository")
 public interface TopoRepository extends JpaRepository<Topo, Long> {
 
     @Query(value="SELECT * FROM db_lade.tb_topo WHERE nom_topo = :nomRecherche", nativeQuery=true)

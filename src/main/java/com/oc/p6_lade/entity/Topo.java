@@ -1,5 +1,8 @@
 package com.oc.p6_lade.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -7,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="topo")
 public class Topo {
 
     @Id
@@ -42,11 +45,12 @@ public class Topo {
     private Boolean disponibiliteTopo;
 
     @ManyToOne
+    @OnDelete(action= OnDeleteAction.CASCADE)
     @JoinColumn(name="id_utilisateur")
     private Utilisateur utilisateur;
 
     @OneToMany
-    @JoinTable(name="tb_reservation_topo", joinColumns=@JoinColumn(name="id_topo"), inverseJoinColumns=@JoinColumn(name="id_reservation_topo"))
+    @JoinTable(name="reservation_topo", joinColumns=@JoinColumn(name="id_topo"), inverseJoinColumns=@JoinColumn(name="id_reservation_topo"))
     private List<ReservationTopo> listeReservationsTopo;
 
     public Topo() {

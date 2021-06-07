@@ -1,11 +1,14 @@
 package com.oc.p6_lade.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="secteur")
 public class Secteur {
 
     @Id
@@ -26,15 +29,17 @@ public class Secteur {
     private String nomSecteur;
 
     @ManyToOne
+    @OnDelete(action=OnDeleteAction.CASCADE)
     @JoinColumn(name="id_utilisateur")
     private Utilisateur utilisateur;
 
     @ManyToOne
+    @OnDelete(action=OnDeleteAction.CASCADE)
     @JoinColumn(name="id_site")
     private Site site;
 
     @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="tb_voie", joinColumns=@JoinColumn(name="id_secteur"), inverseJoinColumns=@JoinColumn(name="id_voie"))
+    @JoinTable(name="voie", joinColumns=@JoinColumn(name="id_secteur"), inverseJoinColumns=@JoinColumn(name="id_voie"))
     private List<Voie> listeVoies;
 
     public Secteur() {

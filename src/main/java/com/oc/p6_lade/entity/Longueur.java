@@ -1,10 +1,13 @@
 package com.oc.p6_lade.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="Longueur")
 public class Longueur {
 
     @Id
@@ -29,10 +32,12 @@ public class Longueur {
     private String cotationLongueur;
 
     @ManyToOne
+    @OnDelete(action= OnDeleteAction.CASCADE)
     @JoinColumn(name="id_utilisateur")
     private Utilisateur utilisateur;
 
     @ManyToOne
+    @OnDelete(action=OnDeleteAction.CASCADE)
     @JoinColumn(name="id_voie")
     private Voie voie;
 

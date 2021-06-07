@@ -14,6 +14,6 @@ public interface VoieRepository extends JpaRepository<Voie, Long> {
 
     Voie getByNomVoie(String nomVoie);
 
-    @Query(value="SELECT * FROM db_lade.tb_voie WHERE nom_voie = :nomRecherche", nativeQuery=true)
+    @Query(value="SELECT * FROM db_lade.voie WHERE nom_voie = :nomRecherche", nativeQuery=true)
     List<Voie> rechercheNomVoie(@Param("nomRecherche") String nomRecherche);
 }

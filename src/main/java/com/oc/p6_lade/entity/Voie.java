@@ -1,12 +1,15 @@
 package com.oc.p6_lade.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="voie")
 public class Voie {
 
     @Id
@@ -34,15 +37,17 @@ public class Voie {
     private String cotationVoie;
 
     @ManyToOne
+    @OnDelete(action= OnDeleteAction.CASCADE)
     @JoinColumn(name="id_utilisateur")
     private Utilisateur utilisateur;
 
     @ManyToOne
+    @OnDelete(action=OnDeleteAction.CASCADE)
     @JoinColumn(name="id_secteur")
     private Secteur secteur;
 
     @OneToMany
-    @JoinTable(name="tb_longueur", joinColumns=@JoinColumn(name="id_voie"), inverseJoinColumns=@JoinColumn(name="id_longueur"))
+    @JoinTable(name="longueur", joinColumns=@JoinColumn(name="id_voie"), inverseJoinColumns=@JoinColumn(name="id_longueur"))
     private List<Longueur> listeLongueurs;
 
     public Voie() {

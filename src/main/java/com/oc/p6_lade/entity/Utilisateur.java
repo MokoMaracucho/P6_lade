@@ -1,11 +1,14 @@
 package com.oc.p6_lade.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="utilisateur")
 public class Utilisateur {
 
     @Id
@@ -44,19 +47,19 @@ public class Utilisateur {
     private Timestamp dateInscriptionUtilisateur;
 
     @OneToMany
-    @JoinTable(name="tb_site", joinColumns=@JoinColumn(name="id_utilisateur"), inverseJoinColumns=@JoinColumn(name="id_site"))
+    @JoinTable(name="site", joinColumns=@JoinColumn(name="id_utilisateur"), inverseJoinColumns=@JoinColumn(name="id_site"))
     private List<Site> listeSites;
 
     @OneToMany
-    @JoinTable(name="tb_commentaire", joinColumns=@JoinColumn(name="id_utilisateur"), inverseJoinColumns=@JoinColumn(name="id_commentaire"))
+    @JoinTable(name="commentaire", joinColumns=@JoinColumn(name="id_utilisateur"), inverseJoinColumns=@JoinColumn(name="id_commentaire"))
     private List<Commentaire> listeCommentaires;
 
     @OneToMany
-    @JoinTable(name="tb_secteur", joinColumns=@JoinColumn(name="id_utilisateur"), inverseJoinColumns=@JoinColumn(name="id_secteur"))
+    @JoinTable(name="secteur", joinColumns=@JoinColumn(name="id_utilisateur"), inverseJoinColumns=@JoinColumn(name="id_secteur"))
     private List<Secteur> listeSecteurs;
 
     @OneToMany
-    @JoinTable(name="tb_reservation_topo", joinColumns=@JoinColumn(name="id_utilisateur"), inverseJoinColumns=@JoinColumn(name="id_reservation_topo"))
+    @JoinTable(name="reservation_topo", joinColumns=@JoinColumn(name="id_utilisateur"), inverseJoinColumns=@JoinColumn(name="id_reservation_topo"))
     private List<ReservationTopo> listeReservationsTopo;
 
     public Utilisateur() {

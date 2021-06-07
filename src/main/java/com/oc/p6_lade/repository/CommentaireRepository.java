@@ -12,6 +12,6 @@ import com.oc.p6_lade.entity.Commentaire;
 @Repository
 public interface CommentaireRepository extends JpaRepository<Commentaire, Long> {
 
-    @Query(value="SELECT * FROM db_lade.tb_commentaire WHERE id_site = :idSite", nativeQuery=true)
+    @Query(value="SELECT * FROM db_lade.commentaire WHERE id_site = :idSite", nativeQuery=true)
     List<Commentaire> findAllByIdSite(@Param("idSite") Long idSite);
 }
