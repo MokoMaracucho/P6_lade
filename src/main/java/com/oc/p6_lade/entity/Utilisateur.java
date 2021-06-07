@@ -33,6 +33,9 @@ public class Utilisateur {
     @Column(name="mot_de_passe_utilisateur")
     private String motDePasseUtilisateur;
 
+    @Column(name="numero_membre_utilisateur")
+    private String numeroMembreUtilisateur;
+
     @Enumerated(EnumType.STRING)
     @Column(name="privilege_utilisateur", length=300)
     private Privilege privilegeUtilisateur;
@@ -59,11 +62,12 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
-    public Utilisateur(String prenomUtilisateur, String nomUtilisateur, String emailUtilisateur, String motDePasseUtilisateur, Privilege privilegeUtilisateur, Timestamp dateInscriptionUtilisateur, List<Site> listeSites, List<Commentaire> listeCommentaires, List<Secteur> listeSecteurs, List<ReservationTopo> listeReservationsTopo) {
+    public Utilisateur(String prenomUtilisateur, String nomUtilisateur, String emailUtilisateur, String motDePasseUtilisateur, String numeroMembreUtilisateur, Privilege privilegeUtilisateur, Timestamp dateInscriptionUtilisateur, List<Site> listeSites, List<Commentaire> listeCommentaires, List<Secteur> listeSecteurs, List<ReservationTopo> listeReservationsTopo) {
         this.prenomUtilisateur = prenomUtilisateur;
         this.nomUtilisateur = nomUtilisateur;
         this.emailUtilisateur = emailUtilisateur;
         this.motDePasseUtilisateur = motDePasseUtilisateur;
+        this.numeroMembreUtilisateur = numeroMembreUtilisateur;
         this.privilegeUtilisateur = privilegeUtilisateur;
         this.dateInscriptionUtilisateur = dateInscriptionUtilisateur;
         this.listeSites = listeSites;
@@ -72,12 +76,13 @@ public class Utilisateur {
         this.listeReservationsTopo = listeReservationsTopo;
     }
 
-    public Utilisateur(Long idUtilisateur, String prenomUtilisateur, String nomUtilisateur, String emailUtilisateur, String motDePasseUtilisateur, Privilege privilegeUtilisateur, Timestamp dateInscriptionUtilisateur, List<Site> listeSites, List<Commentaire> listeCommentaires, List<Secteur> listeSecteurs, List<ReservationTopo> listeReservationsTopo) {
+    public Utilisateur(Long idUtilisateur, String prenomUtilisateur, String nomUtilisateur, String emailUtilisateur, String motDePasseUtilisateur, String numeroMembreUtilisateur, Privilege privilegeUtilisateur, Timestamp dateInscriptionUtilisateur, List<Site> listeSites, List<Commentaire> listeCommentaires, List<Secteur> listeSecteurs, List<ReservationTopo> listeReservationsTopo) {
         this.idUtilisateur = idUtilisateur;
         this.prenomUtilisateur = prenomUtilisateur;
         this.nomUtilisateur = nomUtilisateur;
         this.emailUtilisateur = emailUtilisateur;
         this.motDePasseUtilisateur = motDePasseUtilisateur;
+        this.numeroMembreUtilisateur = numeroMembreUtilisateur;
         this.privilegeUtilisateur = privilegeUtilisateur;
         this.dateInscriptionUtilisateur = dateInscriptionUtilisateur;
         this.listeSites = listeSites;
@@ -124,6 +129,14 @@ public class Utilisateur {
 
     public void setMotDePasseUtilisateur(String motDePasseUtilisateur) {
         this.motDePasseUtilisateur = motDePasseUtilisateur;
+    }
+
+    public String getNumeroMembreUtilisateur() {
+        return numeroMembreUtilisateur;
+    }
+
+    public void setNumeroMembreUtilisateur(String numeroMembreUtilisateur) {
+        this.numeroMembreUtilisateur = numeroMembreUtilisateur;
     }
 
     public Privilege getPrivilegeUtilisateur() {
@@ -182,6 +195,7 @@ public class Utilisateur {
                 ", nomUtilisateur='" + nomUtilisateur + '\'' +
                 ", emailUtilisateur='" + emailUtilisateur + '\'' +
                 ", motDePasseUtilisateur='" + motDePasseUtilisateur + '\'' +
+                ", numeroMembreUtilisateur='" + numeroMembreUtilisateur + '\'' +
                 ", privilegeUtilisateur=" + privilegeUtilisateur +
                 ", dateInscriptionUtilisateur=" + dateInscriptionUtilisateur +
                 ", listeSites=" + listeSites +

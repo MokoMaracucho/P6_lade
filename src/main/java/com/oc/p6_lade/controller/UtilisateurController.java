@@ -1,41 +1,53 @@
 package com.oc.p6_lade.controller;
 
-import com.oc.p6_lade.entity.Utilisateur;
-import com.oc.p6_lade.form.FormConnection;
-import com.oc.p6_lade.form.FormInscription;
-import com.oc.p6_lade.service.UtilisateurService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.oc.p6_lade.form.FormConnection;
+import com.oc.p6_lade.form.FormInscription;
+import com.oc.p6_lade.form.FormMajUtilisateur;
+import com.oc.p6_lade.entity.Utilisateur;
+import com.oc.p6_lade.exception.ResourceNotFoundException;
+import com.oc.p6_lade.service.UtilisateurService;
 
 @Controller
-@RequestMapping(path="lade/utilisateur")
+@RequestMapping("/utilisateur")
 public class UtilisateurController {
+
+    public static final String ATT_FORM_INSCRIPTION 						= "formInscription";
+    public static final String ATT_FORM_CONNECTION 							= "formConnection";
+    public static final String ATT_FORM_MAJ_UTILISATEUR						= "formMajUtilisateur";
 
     public static final String ATT_SESSION_STATUT							= "sessionStatut";
 
     public static final String ATT_UTILISATEUR				 				= "utilisateur";
-
-    public static final String ATT_FORM_INSCRIPTION 						= "formInscription";
-    public static final String ATT_FORM_CONNECTION 							= "formConnection";
+    public static final String ATT_UTILISATEUR_MAJ				 			= "utilisateurMaj";
 
     public static final String ATT_LISTE_UTILISATEURS				 		= "listeUtilisateurs";
 
-    private final UtilisateurService utilisateurService;
-
     @Autowired
-    public UtilisateurController(UtilisateurService utilisateurService) {
-        this.utilisateurService = utilisateurService;
+    private UtilisateurService utilisateurService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
     @GetMapping("/inscription_utilisateur")
@@ -56,7 +68,7 @@ public class UtilisateurController {
             session.setAttribute(ATT_SESSION_STATUT, true);
             session.setAttribute(ATT_UTILISATEUR, utilisateur);
             model.addAttribute(ATT_UTILISATEUR, utilisateur);
-            return "redirect:/lade/utilisateur/liste_utilisateurs";
+            return "redirect:/utilisateur/liste_utilisateurs";
         }
     }
 
@@ -77,14 +89,57 @@ public class UtilisateurController {
             session.setAttribute(ATT_SESSION_STATUT, true);
             session.setAttribute(ATT_UTILISATEUR, utilisateur);
             model.addAttribute(ATT_UTILISATEUR, utilisateur);
-            return "redirect:/lade/topo/liste_reservations_topo";
+            return "redirect:/topo/liste_reservations_topo";
         }
     }
 
-    @GetMapping(path="liste_utilisateurs")
-    public String listeUtilisateurs(Model model) {
+    @GetMapping("/deconnection_utilisateur")
+    public String deconnectionUtilisateur(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        model.addAttribute(ATT_SESSION_STATUT, false);
+        return "redirect:/utilisateur/liste_utilisateurs";
+    }
+
+    @GetMapping("/liste_utilisateurs")
+    public String listeUtilisateurs(HttpServletRequest request, Model model) throws ResourceNotFoundException {
         List<Utilisateur> listeUtilisateurs = utilisateurService.listeUtilisateurs();
+        HttpSession session = request.getSession();
         model.addAttribute(ATT_LISTE_UTILISATEURS, listeUtilisateurs);
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute(ATT_UTILISATEUR);
+        Long idUtilisateur = utilisateur.getIdUtilisateur();
+        utilisateur = utilisateurService.selectionnerUtilisateurParId(idUtilisateur);
+        session.setAttribute(ATT_UTILISATEUR, utilisateur);
+        model.addAttribute(ATT_UTILISATEUR, utilisateur);
         return "liste_utilisateurs";
+    }
+
+    @PostMapping("/maj_utilisateur")
+    public String majUtilisateur(HttpServletRequest request, @RequestParam(name="idUtilisateur") Long idUtilisateur, Model model) throws ResourceNotFoundException {
+        Utilisateur utilisateur = utilisateurService.selectionnerUtilisateurParId(idUtilisateur);
+        FormMajUtilisateur formMajUtilisateur = utilisateurService.formulaireMajUtilisateur(utilisateur);
+        model.addAttribute(ATT_FORM_MAJ_UTILISATEUR, formMajUtilisateur);HttpSession session = request.getSession();
+        utilisateur = utilisateurService.selectionnerUtilisateurParId(idUtilisateur);
+        session.setAttribute(ATT_UTILISATEUR, utilisateur);
+        model.addAttribute(ATT_UTILISATEUR, utilisateur);
+        return "maj_utilisateur";
+    }
+
+    @PostMapping("/traitement_maj_utilisateur")
+    public String traitementMajUtilisateur(HttpServletRequest request, @Valid @ModelAttribute("formMajUtilisateur") FormMajUtilisateur formMajUtilisateur, BindingResult bindingResult, Model model) throws ResourceNotFoundException {
+        HttpSession session = request.getSession();
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute(ATT_UTILISATEUR);
+        Long idUtilisateur = utilisateur.getIdUtilisateur();
+        utilisateur = utilisateurService.selectionnerUtilisateurParId(idUtilisateur);
+        session.setAttribute(ATT_UTILISATEUR, utilisateur);
+        model.addAttribute(ATT_UTILISATEUR, utilisateur);
+        utilisateurService.traitementMajUtilisateur(formMajUtilisateur);
+        return "redirect:/utilisateur/liste_utilisateurs";
+    }
+
+    @PostMapping("/supprimer_utilisateur")
+    public String suppressionUtilisateurParId(@RequestParam(name="idUtilisateur") Long idUtilisateur) throws ResourceNotFoundException {
+        utilisateurService.suppressionUtilisateurParId(idUtilisateur);
+        return "redirect:/utilisateur/liste_utilisateurs";
     }
 }
