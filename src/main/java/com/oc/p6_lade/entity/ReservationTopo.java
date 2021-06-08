@@ -10,15 +10,7 @@ import javax.persistence.*;
 public class ReservationTopo {
 
     @Id
-    @SequenceGenerator(
-            name = "reservation_topo_sequence",
-            sequenceName = "reservation_topo_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "reservation_topo_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_reservation_topo", updatable=false)
     private Long idReservationTopo;
 
