@@ -11,15 +11,7 @@ import javax.validation.constraints.NotEmpty;
 public class Longueur {
 
     @Id
-    @SequenceGenerator(
-            name = "longueur_sequence",
-            sequenceName = "longueur_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "longueur_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_longueur", updatable=false)
     private Long idLongueur;
 

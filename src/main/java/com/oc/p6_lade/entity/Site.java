@@ -13,15 +13,7 @@ import javax.validation.constraints.NotEmpty;
 public class Site {
 
     @Id
-    @SequenceGenerator(
-            name = "site_sequence",
-            sequenceName = "site_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "site_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_site", updatable=false)
     private Long idSite;
 

@@ -11,15 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Commentaire {
 
     @Id
-    @SequenceGenerator(
-            name = "commentaire_sequence",
-            sequenceName = "commentaire_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "commentaire_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_commentaire", updatable=false)
     private Long idCommentaire;
 

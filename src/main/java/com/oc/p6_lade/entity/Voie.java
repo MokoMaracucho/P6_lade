@@ -13,15 +13,7 @@ import javax.validation.constraints.NotEmpty;
 public class Voie {
 
     @Id
-    @SequenceGenerator(
-            name = "voie_sequence",
-            sequenceName = "voie_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "voie_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_voie", updatable=false)
     private Long idVoie;
 

@@ -44,12 +44,6 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
 
-    @InitBinder
-    public void initBinder(WebDataBinder dataBinder) {
-        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-    }
-
     @GetMapping("/inscription_utilisateur")
     public String inscriptionUtilisateur(Model model) {
         model.addAttribute(ATT_FORM_INSCRIPTION, new FormInscription());

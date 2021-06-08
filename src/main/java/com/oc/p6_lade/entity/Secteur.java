@@ -12,15 +12,7 @@ import java.util.List;
 public class Secteur {
 
     @Id
-    @SequenceGenerator(
-            name = "secteur_sequence",
-            sequenceName = "secteur_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "secteur_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_secteur", updatable=false)
     private Long idSecteur;
 

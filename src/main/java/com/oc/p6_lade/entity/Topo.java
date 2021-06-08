@@ -14,15 +14,7 @@ import javax.validation.constraints.NotEmpty;
 public class Topo {
 
     @Id
-    @SequenceGenerator(
-            name = "topo_sequence",
-            sequenceName = "topo_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "topo_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_topo", updatable=false)
     private Long idTopo;
 
